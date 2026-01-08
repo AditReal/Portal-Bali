@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bali | Pulau Dewata</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2D4059;
+            --secondary: #EA5455;
+            --accent: #FFB400;
+            --dark: #1A1A2E;
+            --light: #F6F6F6;
+            --white: #FFFFFF;
+            --teal: #28B5B5;
+            --purple: #6C5CE7;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            background: linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* Page Management */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header */
+        header {
+            background: rgba(45, 64, 89, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .logo-text span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a.active {
+            background: rgba(255, 180, 0, 0.15);
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+
+        /* Hero - Beranda */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 5% 4rem;
+            background: var(--dark);
+        }
+
+        /* Carousel sebagai background */
+        .carousel-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.85) 0%, rgba(45, 64, 89, 0.75) 100%);
+        }
+
+        .carousel-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(255, 180, 0, 0.1) 0%, transparent 70%);
+            animation: pulse 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.05); }
+            100% { opacity: 0.2; transform: scale(1); }
+        }
+
+        /* Content di atas carousel */
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .hero-welcome {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            animation: fadeInUp 1s ease-out 0.1s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        /* Carousel Indicators */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: var(--accent);
+            transform: scale(1.3);
+        }
+
+        .indicator:hover {
+            background: var(--accent);
+        }
+
+        /* CTA Button */
+        .hero-cta {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease-out 0.7s both;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, #C62828 100%);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(234, 84, 85, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .hero-btn.secondary {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            box-shadow: 0 10px 30px rgba(255, 180, 0, 0.2);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(234, 84, 85, 0.5);
+        }
+
+        .hero-btn.secondary:hover {
+            background: var(--accent);
+            color: var(--dark);
+            box-shadow: 0 15px 40px rgba(255, 180, 0, 0.3);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
+            border-radius: 3px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            font-weight: 400;
+            max-width: 700px;
+        }
+
+        /* Peta Page Styles */
+        .map-page {
+            padding-top: 6rem;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%);
+        }
+
+        .map-hero {
+            padding: 6rem 5% 4rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .map-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+        }
+
+        .map-hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .map-container {
+            padding: 4rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .map-wrapper {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 3rem;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        #bali-map {
+            width: 100%;
+            height: 600px;
+            display: block;
+            filter: drop-shadow(0 15px 40px rgba(0,0,0,0.1));
+        }
+
+        .map-region {
+            fill: var(--primary);
+            stroke: var(--white);
+            stroke-width: 2;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            opacity: 0.9;
+        }
+
+        .map-region:hover {
+            fill: var(--secondary);
+            opacity: 1;
+            transform: scale(1.02);
+            filter: drop-shadow(0 8px 20px rgba(234, 84, 85, 0.4));
+        }
+
+        .region-label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            fill: var(--white);
+            font-weight: 600;
+            text-anchor: middle;
+            pointer-events: none;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .region-label.large {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .map-info-panel {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, var(--white) 0%, #F8F9FA 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 2px solid rgba(40, 181, 181, 0.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .map-info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
+        }
+
+        .map-info-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+
+        .region-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--secondary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .region-details {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .region-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .region-highlights {
+            background: rgba(40, 181, 181, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .region-highlights h4 {
+            color: var(--teal);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .highlights-list {
+            list-style: none;
+        }
+
+        .highlights-list li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .highlights-list li:before {
+            content: '⭐';
+            color: var(--accent);
+        }
+
+        /* Legend untuk peta */
+        .map-legend {
+            display: flex;
+            gap: 3rem;
+            margin-top: 2rem;
+            padding: 1.5rem 2rem;
+            background: rgba(45, 64, 89, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(45, 64, 89, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .legend-color {
+            width: 25px;
+            height: 25px;
+            border-radius: 6px;
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .legend-color.primary {
+            background: var(--primary);
+        }
+
+        .legend-color.hover {
+            background: var(--secondary);
+        }
+
+        .legend-color.capital {
+            background: var(--teal);
+        }
+
+        /* Government Section */
+        .gov-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .gov-info {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .gov-structure {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            color: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .gov-leader {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .gov-leader:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .gov-leader-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            overflow: hidden;
+            border: 5px solid rgba(255,255,255,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .gov-leader-img:hover {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .gov-leader-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gov-leader h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .gov-leader p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gov-leader .period {
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            background: rgba(255, 180, 0, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* Visi Misi Section */
+        .vision-mission {
+            margin-top: 3rem;
+            background: linear-gradient(135deg, rgba(255, 180, 0, 0.05) 0%, rgba(234, 84, 85, 0.05) 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 2px solid rgba(255, 180, 0, 0.1);
+        }
+
+        .vision-mission h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .vision-box, .mission-box {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .vision-box h4, .mission-box h4 {
+            color: var(--secondary);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .vision-box h4:before {
+            content: '🎯';
+        }
+
+        .mission-box h4:before {
+            content: '📋';
+        }
+
+        .mission-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .mission-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .mission-list li:before {
+            content: '✓';
+            color: var(--teal);
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        /* Berita Pemerintah Section */
+        .berita-pemerintah {
+            margin-top: 6rem;
+        }
+
+        .berita-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .berita-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .berita-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--teal) 0%, var(--purple) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .berita-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .berita-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+        }
+
+        .berita-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .berita-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+        }
+
+        .berita-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary);
+            backdrop-filter: blur(10px);
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .berita-content {
+            padding: 2.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .berita-date {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .berita-date::before {
+            content: '📅';
+        }
+
+        .berita-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+        }
+
+        .berita-excerpt {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            font-size: 1.05rem;
+        }
+
+        .berita-source {
+            color: var(--teal);
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .berita-source::before {
+            content: '📰';
+        }
+
+        /* Potensi Daerah Section */
+        .potensi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .potensi-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .potensi-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+        }
+
+        .potensi-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .potensi-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(45, 64, 89, 0.2), rgba(45, 64, 89, 0.7));
+        }
+
+        .potensi-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            z-index: 1;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .potensi-content {
+            padding: 2.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .potensi-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            color: var(--dark);
+            margin-bottom: 1.2rem;
+            min-height: 84px;
+            display: flex;
+            align-items: center;
+            line-height: 1.3;
+        }
+
+        .potensi-list {
+            list-style: none;
+            margin: 1rem 0;
+            flex-grow: 1;
+        }
+
+        .potensi-list li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.05rem;
+        }
+
+        .potensi-list li:before {
+            content: '✨';
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        /* Pariwisata Section */
+        #pariwisata-content {
+            background: linear-gradient(135deg, var(--white) 0%, #F8F9FA 100%);
+            border-radius: 30px;
+            padding: 6rem;
+            margin: 3rem auto;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .tourism-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .tourism-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .tourism-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--teal), var(--purple));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .tourism-card:hover::after {
+            opacity: 1;
+        }
+
+        .tourism-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+        }
+
+        .tourism-image {
+            height: 240px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .tourism-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            backdrop-filter: blur(10px);
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tourism-content {
+            padding: 2.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tourism-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            min-height: 84px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tourism-location {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .tourism-location::before {
+            content: '📍';
+        }
+
+        .tourism-description {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 1.8rem;
+            flex-grow: 1;
+            font-size: 1.05rem;
+        }
+
+        .tourism-features {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+
+        .tourism-feature {
+            background: rgba(40, 181, 181, 0.1);
+            color: var(--teal);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            color: var(--white);
+            padding: 4rem 5% 2rem;
+            text-align: center;
+            border-top: 5px solid var(--accent);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-website-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent) 0%, #FF8C00 100%);
+            color: var(--dark);
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 2rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 180, 0, 0.3);
+        }
+
+        .footer-website-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 180, 0, 0.4);
+            background: linear-gradient(135deg, #FF8C00 0%, var(--accent) 100%);
+        }
+
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--secondary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 30px rgba(234, 84, 85, 0.4);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 15px 40px rgba(234, 84, 85, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                gap: 0.5rem;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            #pemerintah, #potensi-daerah, #pariwisata-content, #berita-content {
+                padding: 2rem;
+            }
+
+            .berita-grid, .tourism-grid, .potensi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gov-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .berita-title, .potensi-title, .tourism-title {
+                min-height: auto;
+                font-size: 1.4rem;
+            }
+
+            .hero-content {
+                padding: 2rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .map-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .region-details {
+                grid-template-columns: 1fr;
+            }
+
+            .region-stats {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            #bali-map {
+                height: 400px;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Action Button -->
+    <div class="fab" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="https://iconlogovector.com/uploads/images/2025/08/lg-68994f309bab5-Provinsi-Bali.webp" alt="Logo Bali">
+                <div class="logo-text">BALI<span>DEWATA</span></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active" data-page="beranda">Beranda</a></li>
+                <li><a href="#" class="nav-link" data-page="peta">Peta Bali</a></li>
+                <li><a href="#" class="nav-link" data-page="pemerintah">Pemerintah</a></li>
+                <li><a href="#" class="nav-link" data-page="potensi-daerah">Potensi Daerah </a></li>
+                <li><a href="#" class="nav-link" data-page="pariwisata-content">Wisata</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HALAMAN BERANDA -->
+    <div class="page active" id="beranda">
+        <section class="hero">
+            <!-- Carousel sebagai background -->
+            <div class="carousel-background">
+                <div class="carousel-wrapper" id="carouselWrapper">
+                    <!-- Slide 1 - Pura Tanah Lot -->
+                    <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1534008897995-27a23e859048?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+                        <div class="carousel-overlay"></div>
+                    </div>
+
+                    <!-- Slide 2 - Sawah Jatiwuluh -->
+                    <div class="carousel-slide" style="background-image: url('https://i.pinimg.com/1200x/f6/54/cb/f654cb99d01e587f292d53886c252746.jpg');">
+                        <div class="carousel-overlay"></div>
+                    </div>
+
+                    <!-- Slide 3 - Pura Tanah Lot -->
+                    <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+                        <div class="carousel-overlay"></div>
+                    </div>
+
+                    <!-- Slide 4 - Pura Ulun Danu -->
+                    <div class="carousel-slide" style="background-image: url('https://media.istockphoto.com/id/475519262/id/foto/pura-ulun-danu-bratan-at-bali-indonesia.jpg?s=612x612&w=0&k=20&c=oZms7JDBo9d65bKitr1XsqS8jAGMLMlU1xjaL3mf8kM=');">
+                        <div class="carousel-overlay"></div>
+                    </div>
+
+                    <!-- Slide 5 - Pantai Seminyak -->
+                    <div class="carousel-slide" style="background-image: url('https://www.water-sport-bali.com/wp-content/uploads/2024/08/Potato-Head-Pantai-Petitenget-Seminyak-Fearture.webp');">
+                        <div class="carousel-overlay"></div>
+                    </div>
+
+                    <!-- Slide 6 - Taman Ujung -->
+                    <div class="carousel-slide" style="background-image: url('https://lovebali.baliprov.go.id/storage/touriest_destinations/img-15959965175f20f9651a74b.jpg');">
+                        <div class="carousel-overlay"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carousel Indicators -->
+            <div class="carousel-indicators" id="carouselIndicators"></div>
+
+            <!-- Content di atas carousel -->
+            <div class="hero-content floating">
+                <div class="hero-welcome">Om Swastiastu</div>
+                <h1>PULAU DEWATA BALI</h1>
+                <p>Temukan pesona alam yang memukau, budaya yang hidup, dan pengalaman tak terlupakan di surga tropis Indonesia</p>
+                
+                <div class="hero-cta">
+                    <a href="#" class="hero-btn" onclick="navigateToPage('pariwisata-content'); return false;">Jelajahi Wisata</a>
+                    <a href="#" class="hero-btn secondary" onclick="navigateToPage('peta'); return false;">Lihat Peta Bali</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- HALAMAN PETA TERPISAH -->
+    <div class="page" id="peta">
+        <div class="map-page">
+            <section class="map-hero">
+                <h1>Peta Interaktif Bali</h1>
+                <p>Jelajahi keunikan setiap kabupaten dan kota di Pulau Dewata. Temukan destinasi wisata, potensi ekonomi, dan budaya yang khas di setiap wilayah.</p>
+            </section>
+
+            <section class="map-container">
+                <div class="map-wrapper">
+                    <svg id="bali-map" viewBox="2 2 1000 500" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Wilayah Bali -->
+                        <!-- Jembrana -->
+                        <path class="map-region" data-region="Jembrana" 
+                              data-desc="Kabupaten Jembrana terletak di Bali Barat dengan ibukota Negara. Dikenal dengan Taman Nasional Bali Barat dan Pantai Medewi yang menjadi surga bagi peselancar. Memiliki luas wilayah 841,80 km² dengan potensi utama di bidang perikanan dan pertanian."
+                              data-area="841.80"
+                              data-attractions="Taman Nasional Bali Barat, Pantai Medewi, Perikanan Tradisional"
+                              data-icon="🏄"
+                              d="M 120 300 L 200 280 L 230 330 L 210 380 L 140 360 L 110 320 Z"/>
+                        <text x="160" y="320" class="region-label">Jembrana</text>
+                        
+                        <!-- Tabanan -->
+                        <path class="map-region" data-region="Tabanan"
+                              data-desc="Kabupaten Tabanan dikenal sebagai lumbung beras Bali dengan ibukota Tabanan. Memiliki Pura Tanah Lot yang ikonik dan sawah berundak yang mempesona. Luas wilayah 839,30 km² dengan ekonomi berbasis pertanian dan pariwisata."
+                              data-area="839.30"
+                              data-attractions="Pura Tanah Lot, Sawah Berundak Jatiluwih, Danau Beratan"
+                              data-icon="🌾"
+                              d="M 200 280 L 280 250 L 310 300 L 290 350 L 230 330 L 210 290 Z"/>
+                        <text x="245" y="290" class="region-label">Tabanan</text>
+                        
+                        <!-- Badung -->
+                        <path class="map-region" data-region="Badung"
+                              data-desc="Kabupaten Badung merupakan pusat pariwisata internasional dengan ibukota Mangupura. Meliputi Kuta, Seminyak, Nusa Dua, dan Jimbaran. Luas wilayah 418,52 km² dengan ekonomi berbasis pariwisata kelas dunia."
+                              data-area="418.52"
+                              data-attractions="Pantai Kuta, Seminyak, Nusa Dua, Jimbaran"
+                              data-icon="🏖️"
+                              d="M 280 250 L 360 230 L 390 280 L 370 330 L 310 300 L 290 260 Z"/>
+                        <text x="330" y="270" class="region-label">Badung</text>
+                        
+                        <!-- Denpasar -->
+                        <path class="map-region" data-region="Denpasar"
+                              data-desc="Kota Denpasar merupakan ibu kota Provinsi Bali. Sebagai pusat pemerintahan, budaya, dan ekonomi dengan luas 127,78 km². Denpasar menggabungkan modernitas dengan tradisi Bali yang kental dan warisan budaya yang kaya."
+                              data-area="127.78"
+                              data-attractions="Museum Bali, Pura Jagatnatha, Pusat Perbelanjaan, Seni Budaya"
+                              data-icon="🏙️"
+                              d="M 360 230 L 420 210 L 450 260 L 430 310 L 390 280 L 370 240 Z"/>
+                        <text x="395" y="250" class="region-label large">Denpasar</text>
+                        
+                        <!-- Gianyar -->
+                        <path class="map-region" data-region="Gianyar"
+                              data-desc="Kabupaten Gianyar merupakan jantung seni dan budaya Bali dengan ibukota Gianyar. Memiliki Ubud sebagai pusat seni, galeri, dan kerajinan tradisional. Luas wilayah 368,00 km² terkenal dengan tenun endek dan ukiran kayu."
+                              data-area="368.00"
+                              data-attractions="Ubud, Monkey Forest, Seni Kerajinan, Pura Goa Gajah"
+                              data-icon="🎨"
+                              d="M 420 210 L 500 190 L 530 240 L 510 290 L 450 260 L 430 220 Z"/>
+                        <text x="470" y="230" class="region-label">Gianyar</text>
+                        
+                        <!-- Klungkung -->
+                        <path class="map-region" data-region="Klungkung"
+                              data-desc="Kabupaten Klungkung memiliki warisan sejarah Kerajaan Klungkung dengan ibukota Semarapura. Luas wilayah 315,00 km² terkenal dengan Kerta Gosa, Taman Gili, dan seni lukis klasik tradisional yang masih terjaga."
+                              data-area="315.00"
+                              data-attractions="Kerta Gosa, Taman Gili, Pantai Pasih Uug, Seni Lukis Klasik"
+                              data-icon="🏰"
+                              d="M 500 190 L 580 170 L 610 220 L 590 270 L 530 240 L 510 200 Z"/>
+                        <text x="550" y="210" class="region-label">Klungkung</text>
+                        
+                        <!-- Bangli -->
+                        <path class="map-region" data-region="Bangli"
+                              data-desc="Kabupaten Bangli terletak di daerah pegunungan dengan ibukota Bangli. Memiliki Danau Batur, Gunung Batur, dan kompleks Pura Besakih. Luas wilayah 490,71 km² dengan panorama alam menakjubkan dan udara sejuk."
+                              data-area="490.71"
+                              data-attractions="Danau Batur, Gunung Batur, Pura Besakih, Kintamani"
+                              data-icon="⛰️"
+                              d="M 500 240 L 580 220 L 610 270 L 630 320 L 570 340 L 530 290 L 500 260"/>
+                        <text x="560" y="300" class="region-label">Bangli</text>
+                        
+                        <!-- Karangasem -->
+                        <path class="map-region" data-region="Karangasem"
+                              data-desc="Kabupaten Karangasem menawarkan keindahan timur Bali dengan ibukota Amlapura. Memiliki Tirta Gangga, Amed, dan pantai-pantai tersembunyi. Luas wilayah 839,54 km² kaya akan warisan budaya dan panorama alam asri."
+                              data-area="839.54"
+                              data-attractions="Tirta Gangga, Pantai Amed, Pura Lempuyang, Taman Ujung"
+                              data-icon="🌅"
+                              d="M 580 170 L 680 150 L 710 200 L 690 250 L 630 270 L 610 220 L 590 180 Z"/>
+                        <text x="640" y="210" class="region-label">Karangasem</text>
+                        
+                        <!-- Buleleng -->
+                        <path class="map-region" data-region="Buleleng"
+                              data-desc="Kabupaten Buleleng terletak di pantai utara Bali dengan ibukota Singaraja. Merupakan kabupaten terluas (1.365,88 km²) dengan Pantai Lovina, Air Terjun Gitgit, dan kehidupan bawah laut yang menakjubkan. Dikenal dengan budaya Bali Aga."
+                              data-area="1,365.88"
+                              data-attractions="Pantai Lovina, Air Terjun Gitgit, Terumbu Karang, Pemuteran"
+                              data-icon="🐬"
+                              d="M 140 360 L 290 350 L 310 400 L 280 450 L 150 420 L 130 380 Z"/>
+                        <text x="220" y="400" class="region-label large">Buleleng</text>
+                        
+                        <!-- Dekorasi -->
+                        <text x="500" y="80" font-family="Playfair Display" font-size="32" fill="#2D4059" text-anchor="middle" font-weight="800">
+                            🗺️ PETA WILAYAH BALI 🗺️
+                        </text>
+                        
+                        <!-- Garis pembatas antar wilayah -->
+                        <path d="M 500 240 L 580 220" stroke="#2D4059" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+                        <path d="M 580 220 L 610 270" stroke="#2D4059" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+                    </svg>
+
+                    <div class="map-legend">
+                        <div class="legend-item">
+                            <div class="legend-color primary"></div>
+                            <span>Kabupaten/Kota</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color hover"></div>
+                            <span>Wilayah saat dihover</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color capital"></div>
+                            <span>Ibu Kota Provinsi</span>
+                        </div>
+                    </div>
+
+                    <div class="map-info-panel" id="map-info-panel">
+                        <div class="map-info-header">
+                            <h2 class="map-info-title" id="region-name">Pulau Dewata Bali</h2>
+                            <div class="region-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number" id="stat-area">5.780</span>
+                                    <span class="stat-label">km² Luas</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="stat-regencies">8</span>
+                                    <span class="stat-label">Kabupaten</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="stat-cities">1</span>
+                                    <span class="stat-label">Kota</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="region-details">
+                            <div class="region-description" id="region-description">
+                                Bali, yang dikenal sebagai "Pulau Dewata", adalah destinasi wisata dunia yang memadukan keindahan alam dengan budaya Hindu yang kental. Dengan luas 5.780 km², Bali terdiri dari 8 kabupaten dan 1 kota yang masing-masing memiliki karakteristik unik. Arahkan kursor ke wilayah di peta untuk menjelajahi kekayaan setiap daerah.
+                            </div>
+                            
+                            <div class="region-highlights">
+                                <h4>🎯 Daya Tarik Utama</h4>
+                                <ul class="highlights-list" id="region-highlights">
+                                    <li>Wisata Budaya & Spiritual</li>
+                                    <li>Pantai Eksotis & Surfing</li>
+                                    <li>Pertanian Berkelanjutan</li>
+                                    <li>Seni & Kerajinan Tradisional</li>
+                                    <li>Kuliner Khas Bali</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- HALAMAN PEMERINTAH -->
+    <div class="page" id="pemerintah">
+        <section style="padding: 6rem 5%; max-width: 1400px; margin: 0 auto; min-height: 80vh;">
+            <h2 class="section-title">Pemerintah Bali</h2>
+            <p class="section-subtitle">Kepemimpinan yang membawa Bali menuju kemajuan berkelanjutan</p>
+            
+            <div class="gov-container">
+                <div class="gov-info">
+                    <h3 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 2rem;">Nangun Sat Kerthi Loka Bali</h3>
+                    <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">Filosofi kepemimpinan Bali yang berarti "Menjaga Kesucian dan Keharmonisan Alam Bali" menjadi dasar pembangunan berkelanjutan di Pulau Dewata.</p>
+                    
+                    <div style="background: rgba(40, 181, 181, 0.1); padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+                        <h4 style="color: var(--teal); margin-bottom: 1rem;">🏛️ Struktur Pemerintahan</h4>
+                        <ul style="list-style: none; margin-left: 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.1);">• 8 Kabupaten & 1 Kota</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.1);">• 57 Kecamatan</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.1);">• 716 Desa/Kelurahan</li>
+                            <li style="padding: 0.5rem 0;">• 3.489 Banjar Dinas</li>
+                        </ul>
+                    </div>
+                    
+                    <h4 style="color: var(--secondary); margin: 2rem 0 1rem;">📞 Hubungi Kami</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                        <div style="background: rgba(255, 180, 0, 0.1); padding: 1rem; border-radius: 10px;">
+                            <strong style="color: var(--accent);">📍 Alamat</strong>
+                            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Jl. Raya Puputan No. 1, Renon, Denpasar</p>
+                        </div>
+                        <div style="background: rgba(234, 84, 85, 0.1); padding: 1rem; border-radius: 10px;">
+                            <strong style="color: var(--secondary);">📱 Telepon</strong>
+                            <p style="margin-top: 0.5rem; font-size: 0.9rem;">(0361) 235111</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gov-structure">
+                    <div class="gov-leader">
+                        <div class="gov-leader-img">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Wayan-Koster_Gubernur-Bali-768x961.png" alt="I Wayan Koster">
+                        </div>
+                        <h3>I Wayan Koster</h3>
+                        <p>Gubernur Bali</p>
+                        <div class="period">Masa Jabatan 2018 - 2023</div>
+                    </div>
+                    
+                    <div class="gov-leader">
+                        <div class="gov-leader-img">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/I-Nyoman-Giri-Prasta_Wakil-Gubernur-Bali-768x961.png" alt="I Nyoman Giri Pasta">
+                        </div>
+                        <h3>I Nyoman Giri Prasta</h3>
+                        <p>Wakil Gubernur Bali</p>
+                        <div class="period">Masa Jabatan 2018 - 2023</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Visi Misi -->
+            <div class="vision-mission">
+                <h3>Visi & Misi Gubernur Bali</h3>
+                <div class="vision-box">
+                    <h4>Visi</h4>
+                    <p style="font-size: 1.3rem; font-weight: 600; color: var(--primary); line-height: 1.5;">
+                        "Terwujudnya Bali Era Baru yang Maju, Mandiri, dan Berkelanjutan dengan Berlandaskan Nilai-Nilai Tri Hita Karana"
+                    </p>
+                </div>
+                
+                <div class="mission-box">
+                    <h4>Misi</h4>
+                    <ul class="mission-list">
+                        <li>Memajukan pembangunan berkelanjutan yang berwawasan lingkungan</li>
+                        <li>Meningkatkan kesejahteraan masyarakat Bali secara merata</li>
+                        <li>Melestarikan dan mengembangkan nilai-nilai budaya Bali</li>
+                        <li>Memperkuat ketahanan ekonomi daerah berbasis potensi lokal</li>
+                        <li>Meningkatkan kualitas pelayanan publik yang prima</li>
+                        <li>Membangun tata kelola pemerintahan yang baik dan bersih</li>
+                        <li>Memperkuat ketahanan pangan dan energi daerah</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Berita Pemerintah Terkini -->
+            <div class="berita-pemerintah">
+                <h3 class="section-title" style="font-size: 2.2rem; margin-top: 4rem;">Berita Pemerintah Terkini</h3>
+                <p class="section-subtitle">Update kegiatan dan program pemerintah Provinsi Bali</p>
+                
+                <div class="berita-grid">
+                    <!-- Berita 1 -->
+                    <div class="berita-card">
+                        <div class="berita-image" style="background-image: url('https://asset.kompas.com/crops/ZlTcEVoxvlmSfIY7TRfp291UE3g=/143x0:1493x900/750x500/data/photo/2025/12/23/694a5d5f0625a.jpeg');">
+                            <div class="berita-badge">HUT Ke-64 Bali</div>
+                        </div>
+                        <div class="berita-content">
+                            <div class="berita-date">10 Desember 2025</div>
+                            <h3 class="berita-title">Puncak HUT Ke-64 Bali: Wayan Koster Tekankan Tiga Pilar Pembangunan Berkelanjutan</h3>
+                            <p class="berita-excerpt">Gubernur Bali Wayan Koster menekankan pentingnya tiga pilar pembangunan berkelanjutan: ekonomi hijau, budaya lestari, dan inklusi sosial dalam perayaan HUT ke-64 Provinsi Bali.</p>
+                            <div class="berita-source">Sumber: Portal Resmi Bali</div>
+                        </div>
+                    </div>
+
+                    <!-- Berita 2 -->
+                    <div class="berita-card">
+                        <div class="berita-image" style="background-image: url('https://baliportalnews.com/wp-content/uploads/2025/06/WhatsApp-Image-2025-06-20-at-13.57.01-e1750399161761.jpeg');">
+                            <div class="berita-badge">Pelatihan Digital</div>
+                        </div>
+                        <div class="berita-content">
+                            <div class="berita-date">8 Desember 2025</div>
+                            <h3 class="berita-title">Pemprov Bali Luncurkan Program Pelatihan Digital Gratis untuk 10.000 UMKM</h3>
+                            <p class="berita-excerpt">Program "UMKM Go Digital" diluncurkan untuk membekali pelaku usaha dengan keterampilan digital guna meningkatkan daya saing di era ekonomi digital.</p>
+                            <div class="berita-source">Sumber: Dinas Koperasi dan UMKM Bali</div>
+                        </div>
+                    </div>
+
+                    <!-- Berita 3 -->
+                    <div class="berita-card">
+                        <div class="berita-image" style="background-image: url('https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/11/2025/08/23/c278131d-20d6-4f5c-ada8-f19a2bc0161d-3716769359.jpeg');">
+                            <div class="berita-badge">Wisata Berkelanjutan</div>
+                        </div>
+                        <div class="berita-content">
+                            <div class="berita-date">5 Desember 2025</div>
+                            <h3 class="berita-title">Bali Terima Penghargaan Internasional untuk Pariwisata Berkelanjutan</h3>
+                            <p class="berita-excerpt">UNESCO memberikan penghargaan kepada Bali atas komitmennya dalam mengembangkan pariwisata berkelanjutan yang memadukan pelestarian budaya dengan konservasi lingkungan.</p>
+                            <div class="berita-source">Sumber: Dinas Pariwisata Bali</div>
+                        </div>
+                    </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- HALAMAN POTENSI DAERAH -->
+    <div class="page" id="potensi-daerah">
+        <section style="padding: 6rem 5%; max-width: 1400px; margin: 0 auto; min-height: 80vh;">
+            <h2 class="section-title">Potensi & Ekonomi Bali</h2>
+            <p class="section-subtitle">Menggali kekayaan alam, budaya, dan ekonomi Pulau Dewata</p>
+            
+            <div class="potensi-grid">
+                <div class="potensi-card">
+                    <div class="potensi-image" style="background-image: url('https://mawatu.co.id/wp-content/uploads/2024/10/image-21-1024x683.png');">
+                        <div class="potensi-icon">🏝️</div>
+                    </div>
+                    <div class="potensi-content">
+                        <h3 class="potensi-title">Pariwisata Berkelanjutan</h3>
+                        <ul class="potensi-list">
+                            <li>Eco-tourism & wellness retreat</li>
+                            <li>Budaya & spiritual tourism</li>
+                            <li>MICE & event tourism</li>
+                            <li>Adventure & nature tourism</li>
+                            <li>Marine & water sports</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="potensi-card">
+                    <div class="potensi-image" style="background-image: url('https://cdn.linkumkm.id/uploads/library/1/4/3/4/4/9/143449_840x576.png');">
+                        <div class="potensi-icon">🎨</div>
+                    </div>
+                    <div class="potensi-content">
+                        <h3 class="potensi-title">Ekonomi Kreatif</h3>
+                        <ul class="potensi-list">
+                            <li>Kerajinan perak & emas tradisional</li>
+                            <li>Seni ukir kayu & batu padas</li>
+                            <li>Tenun endek & songket Bali</li>
+                            <li>Kuliner & gastronomi lokal</li>
+                            <li>Seni pertunjukan & festival</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="potensi-card">
+                    <div class="potensi-image" style="background-image: url('https://gapoktansekarsari.wordpress.com/wp-content/uploads/2017/02/foto-demokrasi-bali.jpg');">
+                        <div class="potensi-icon">🌱</div>
+                    </div>
+                    <div class="potensi-content">
+                        <h3 class="potensi-title">Pertanian Organik</h3>
+                        <ul class="potensi-list">
+                            <li>Beras organik sistem subak</li>
+                            <li>Kopi arabika Kintamani</li>
+                            <li>Sayuran & buah tropis</li>
+                            <li>Rempah & herbal tradisional</li>
+                            <li>Florikultura & tanaman hias</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="potensi-card">
+                    <div class="potensi-image" style="background-image: url('https://asset.kompas.com/crops/VhZXzqgOZCMP-4depI4rNodX-2c=/0x36:1080x756/750x500/data/photo/2022/10/24/6355d28982a6f.jpg');">
+                        <div class="potensi-icon">🏨</div>
+                    </div>
+                    <div class="potensi-content">
+                        <h3 class="potensi-title">Hospitality Excellence</h3>
+                        <ul class="potensi-list">
+                            <li>Luxury resorts & villas</li>
+                            <li>Boutique hotels & homestay</li>
+                            <li>Spa & wellness centers</li>
+                            <li>Fine dining restaurants</li>
+                            <li>Tour & travel services</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="potensi-card">
+                    <div class="potensi-image" style="background-image: url('https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/70/2025/01/22/pantai-kuta-716396993.jpg');">
+                        <div class="potensi-icon">🌊</div>
+                    </div>
+                    <div class="potensi-content">
+                        <h3 class="potensi-title">Kelautan & Perikanan</h3>
+                        <ul class="potensi-list">
+                            <li>Perikanan tangkap tradisional</li>
+                            <li>Budidaya rumput laut</li>
+                            <li>Mariculture & aquaculture</li>
+                            <li>Pengolahan produk laut</li>
+                            <li>Wisata bahari & diving</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="potensi-card">
+                    <div class="potensi-image" style="background-image: url('https://thumb.viva.id/vivabali/665x374/2025/05/11/68209f6134e5f-wisata-cerdas-di-era-digital-bali_bali.jpg');">
+                        <div class="potensi-icon">💻</div>
+                    </div>
+                    <div class="potensi-content">
+                        <h3 class="potensi-title">Teknologi Digital</h3>
+                        <ul class="potensi-list">
+                            <li>Startup pariwisata digital</li>
+                            <li>E-commerce produk lokal</li>
+                            <li>Digital marketing services</li>
+                            <li>Konten kreatif & media</li>
+                            <li>Coworking & tech hub</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- HALAMAN PARIWISATA -->
+    <div class="page" id="pariwisata-content">
+        <section style="padding: 6rem 5%; max-width: 1400px; margin: 0 auto; min-height: 80vh;">
+            <h2 class="section-title">Destinasi Unggulan Bali</h2>
+            <p class="section-subtitle">Rasakan pengalaman tak terlupakan di setiap sudut Pulau Dewata</p>
+            
+            <div class="tourism-grid">
+                <div class="tourism-card">
+                    <div class="tourism-image" style="background-image: url('https://i.pinimg.com/1200x/89/2b/3d/892b3df8ccfeb54818130115d63efb0a.jpg');">
+                        <div class="tourism-badge">Pantai</div>
+                    </div>
+                    <div class="tourism-content">
+                        <h3 class="tourism-title">Pantai Kuta & Seminyak</h3>
+                        <div class="tourism-location">Badung</div>
+                        <p class="tourism-description">Pantai dengan pasir putih, ombak sempurna untuk surfing, dan sunset yang legendaris. Pusat kehidupan malam dan kuliner.</p>
+                        <div class="tourism-features">
+                            <span class="tourism-feature">🏄 Surfing</span>
+                            <span class="tourism-feature">🌅 Sunset</span>
+                            <span class="tourism-feature">🍽️ Kuliner</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tourism-card">
+                    <div class="tourism-image" style="background-image: url('https://i.pinimg.com/1200x/ea/f0/e7/eaf0e7c9b3f6f391416423a0c8074f2f.jpg');">
+                        <div class="tourism-badge">Pura</div>
+                    </div>
+                    <div class="tourism-content">
+                        <h3 class="tourism-title">Pura Tanah Lot</h3>
+                        <div class="tourism-location">Tabanan</div>
+                        <p class="tourism-description">Pura yang berdiri megah di atas batu karang di tengah laut. Ikon Bali yang paling difoto dengan panorama sunset spektakuler.</p>
+                        <div class="tourism-features">
+                            <span class="tourism-feature">🏛️ Sejarah</span>
+                            <span class="tourism-feature">📸 Fotografi</span>
+                            <span class="tourism-feature">🙏 Spiritual</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tourism-card">
+                    <div class="tourism-image" style="background-image: url('https://ik.imagekit.io/tvlk/blog/2024/11/Ubud-1024x768.png?tr=q-70,c-at_max,w-1000,h-600');">
+                        <div class="tourism-badge">Alam</div>
+                    </div>
+                    <div class="tourism-content">
+                        <h3 class="tourism-title">Sawah Berundak Tegalalang</h3>
+                        <div class="tourism-location">Gianyar</div>
+                        <p class="tourism-description">Pemandangan sawah berundak yang memukau dengan sistem irigasi subak tradisional. Udara sejuk dan panorama hijau yang menenangkan.</p>
+                        <div class="tourism-features">
+                            <span class="tourism-feature">🌿 Alam</span>
+                            <span class="tourism-feature">🏞️ Pemandangan</span>
+                            <span class="tourism-feature">🌾 Budaya</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tourism-card">
+                    <div class="tourism-image" style="background-image: url('https://www.rentalmobilbali.net/wp-content/uploads/2022/09/feature-image-pura-ulun-danu-beratan-bedugul.webp');">
+                        <div class="tourism-badge">Danau</div>
+                    </div>
+                    <div class="tourism-content">
+                        <h3 class="tourism-title">Pura Ulun Danu Beratan</h3>
+                        <div class="tourism-location">Tabanan</div>
+                        <p class="tourism-description">Pura yang terletak di tepi Danau Beratan dengan latar belakang pegunungan. Sering muncul dalam uang kertas Rp50.000.</p>
+                        <div class="tourism-features">
+                            <span class="tourism-feature">💧 Danau</span>
+                            <span class="tourism-feature">⛰️ Gunung</span>
+                            <span class="tourism-feature">🏛️ Arsitektur</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tourism-card">
+                    <div class="tourism-image" style="background-image: url('https://ik.imagekit.io/tvlk/blog/2025/01/wisata-spiritual-bali-mobile.png');">
+                        <div class="tourism-badge">Budaya</div>
+                    </div>
+                    <div class="tourism-content">
+                        <h3 class="tourism-title">Ubud - Jantung Budaya</h3>
+                        <div class="tourism-location">Gianyar</div>
+                        <p class="tourism-description">Pusat seni, kerajinan, dan budaya Bali dengan Monkey Forest, galeri seni, dan kehidupan spiritual yang mendalam.</p>
+                        <div class="tourism-features">
+                            <span class="tourism-feature">🎨 Seni</span>
+                            <span class="tourism-feature">🛍️ Kerajinan</span>
+                            <span class="tourism-feature">🙏 Wellness</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tourism-card">
+                    <div class="tourism-image" style="background-image: url('https://lovebali.baliprov.go.id/storage/touriest_destinations/img-165776597262cf8054450f2.jpg');">
+                        <div class="tourism-badge">Air Terjun</div>
+                    </div>
+                    <div class="tourism-content">
+                        <h3 class="tourism-title">Air Terjun Tegenungan</h3>
+                        <div class="tourism-location">Gianyar</div>
+                        <p class="tourism-description">Air terjun setinggi 15 meter yang dikelilingi hutan tropis. Kolam alami di bawahnya cocok untuk berenang dan relaksasi.</p>
+                        <div class="tourism-features">
+                            <span class="tourism-feature">💦 Air Terjun</span>
+                            <span class="tourism-feature">🏊 Berenang</span>
+                            <span class="tourism-feature">📸 Fotografi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#" onclick="navigateToPage('beranda'); return false;">🏠 Beranda</a>
+                <a href="#" onclick="navigateToPage('peta'); return false;">🗺️ Peta Bali</a>
+                <a href="#" onclick="navigateToPage('pemerintah'); return false;">🏛️ Pemerintah</a>
+                <a href="#" onclick="navigateToPage('potensi-daerah'); return false;">💎 Potensi</a>
+                <a href="#" onclick="navigateToPage('pariwisata-content'); return false;">🌴 Wisata</a>
+            </div>
+            
+            <a href="https://www.baliprov.go.id/" target="_blank" class="footer-website-btn">
+                🌐 Kunjungi Website Resmi Provinsi Bali
+            </a>
+            
+            <div class="footer-copyright">
+                <p>&copy; 2025 Portal Bali | "Nangun Sat Kerthi Loka Bali" - Menjaga Kesucian dan Keharmonisan Alam Bali</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.5);">✨ Pulau Dewata - Where Tradition Meets Paradise ✨</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel Functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const wrapper = document.getElementById('carouselWrapper');
+        const totalSlides = slides.length;
+        let carouselInterval;
+
+        // Create indicators
+        function createIndicators() {
+            const indicatorsContainer = document.getElementById('carouselIndicators');
+            if (indicatorsContainer) {
+                indicatorsContainer.innerHTML = '';
+                for (let i = 0; i < totalSlides; i++) {
+                    const indicator = document.createElement('div');
+                    indicator.className = `indicator ${i === 0 ? 'active' : ''}`;
+                    indicator.addEventListener('click', () => goToSlide(i));
+                    indicatorsContainer.appendChild(indicator);
+                }
+            }
+        }
+
+        function updateIndicators() {
+            const indicators = document.querySelectorAll('.indicator');
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            if (wrapper) {
+                wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+            updateIndicators();
+            resetCarouselInterval();
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            goToSlide(currentSlide);
+        }
+
+        function resetCarouselInterval() {
+            clearInterval(carouselInterval);
+            carouselInterval = setInterval(nextSlide, 5000);
+        }
+
+        // Initialize carousel
+        createIndicators();
+        carouselInterval = setInterval(nextSlide, 5000);
+
+        // Page Navigation System
+        function navigateToPage(pageName) {
+            // Sembunyikan semua halaman
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Tampilkan halaman yang dipilih
+            const selectedPage = document.getElementById(pageName);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+            }
+
+            // Update active state di navbar
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageName) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Scroll ke atas
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Interactive Map untuk halaman peta
+        function setupMapInteractivity() {
+            const mapRegions = document.querySelectorAll('.map-region');
+            const infoPanel = document.getElementById('map-info-panel');
+            
+            if (!infoPanel) return;
+            
+            // Default data untuk seluruh Bali
+            const defaultData = {
+                name: "Pulau Dewata Bali",
+                description: "Bali, yang dikenal sebagai 'Pulau Dewata', adalah destinasi wisata dunia yang memadukan keindahan alam dengan budaya Hindu yang kental. Dengan luas 5.780 km², Bali terdiri dari 8 kabupaten dan 1 kota yang masing-masing memiliki karakteristik unik. Arahkan kursor ke wilayah di peta untuk menjelajahi kekayaan setiap daerah.",
+                area: "5.780",
+                regencies: "8",
+                cities: "1",
+                attractions: ["Wisata Budaya & Spiritual", "Pantai Eksotis & Surfing", "Pertanian Berkelanjutan", "Seni & Kerajinan Tradisional", "Kuliner Khas Bali"]
+            };
+
+            // Update info panel dengan data
+            function updateInfoPanel(data) {
+                document.getElementById('region-name').textContent = data.name;
+                document.getElementById('region-description').textContent = data.description;
+                document.getElementById('stat-area').textContent = data.area;
+                document.getElementById('stat-regencies').textContent = data.regencies;
+                document.getElementById('stat-cities').textContent = data.cities;
+                
+                // Update highlights list
+                const highlightsList = document.getElementById('region-highlights');
+                highlightsList.innerHTML = '';
+                if (data.attractions && Array.isArray(data.attractions)) {
+                    data.attractions.forEach(attraction => {
+                        const li = document.createElement('li');
+                        li.textContent = attraction;
+                        highlightsList.appendChild(li);
+                    });
+                }
+            }
+
+            // Set default data
+            updateInfoPanel(defaultData);
+
+            // Setup hover untuk setiap region
+            mapRegions.forEach(region => {
+                region.addEventListener('mouseenter', function() {
+                    const regionData = {
+                        name: this.getAttribute('data-region'),
+                        description: this.getAttribute('data-desc'),
+                        area: this.getAttribute('data-area') || "N/A",
+                        regencies: "1",
+                        cities: this.getAttribute('data-region') === "Denpasar" ? "1" : "0",
+                        attractions: this.getAttribute('data-attractions') ? 
+                            this.getAttribute('data-attractions').split(', ') : 
+                            ["Wisata Budaya", "Alam", "Kuliner"]
+                    };
+                    
+                    updateInfoPanel(regionData);
+                    infoPanel.style.background = 'rgba(255, 180, 0, 0.05)';
+                    infoPanel.style.borderColor = 'rgba(255, 180, 0, 0.2)';
+                });
+
+                region.addEventListener('mouseleave', function() {
+                    updateInfoPanel(defaultData);
+                    infoPanel.style.background = 'linear-gradient(135deg, var(--white) 0%, #F8F9FA 100%)';
+                    infoPanel.style.borderColor = 'rgba(40, 181, 181, 0.1)';
+                });
+                
+                // Tambahkan click untuk fokus lebih lama
+                region.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const regionData = {
+                        name: this.getAttribute('data-region'),
+                        description: this.getAttribute('data-desc'),
+                        area: this.getAttribute('data-area') || "N/A",
+                        regencies: "1",
+                        cities: this.getAttribute('data-region') === "Denpasar" ? "1" : "0",
+                        attractions: this.getAttribute('data-attractions') ? 
+                            this.getAttribute('data-attractions').split(', ') : 
+                            ["Wisata Budaya", "Alam", "Kuliner"]
+                    };
+                    
+                    updateInfoPanel(regionData);
+                    infoPanel.style.background = 'rgba(40, 181, 181, 0.1)';
+                    infoPanel.style.borderColor = 'var(--teal)';
+                });
+            });
+
+            // Reset ke default jika klik di luar region
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.map-region')) {
+                    updateInfoPanel(defaultData);
+                    infoPanel.style.background = 'linear-gradient(135deg, var(--white) 0%, #F8F9FA 100%)';
+                    infoPanel.style.borderColor = 'rgba(40, 181, 181, 0.1)';
+                }
+            });
+        }
+
+        // Event listeners untuk navbar links
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageName = this.getAttribute('data-page');
+                    navigateToPage(pageName);
+                    
+                    // Setup map interactivity jika masuk ke halaman peta
+                    if (pageName === 'peta') {
+                        setTimeout(setupMapInteractivity, 100);
+                    }
+                });
+            });
+
+            // Setup map interactivity untuk halaman peta (jika langsung ke halaman peta)
+            if (document.getElementById('peta').classList.contains('active')) {
+                setupMapInteractivity();
+            }
+
+            // Scroll Animations untuk cards
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.berita-card, .tourism-card, .potensi-card, .gov-leader').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+
+            // Floating animation untuk hero
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent) {
+                heroContent.classList.add('floating');
+            }
+        });
+
+        // Pause carousel on hover
+        const carousel = document.querySelector('.carousel-background');
+        if (carousel) {
+            carousel.addEventListener('mouseenter', () => {
+                clearInterval(carouselInterval);
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                resetCarouselInterval();
+            });
+        }
+    </script>
+</body>
+</html>
